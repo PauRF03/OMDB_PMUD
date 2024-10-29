@@ -1,0 +1,30 @@
+html, body {
+    background: rgb(33, 28, 28);
+}
+
+#upper_container{
+    align-items: flex-end;
+    display: flex;
+    background-color:lawngreen;
+    padding: 2vw;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    border-radius: 5px;
+}
+
+#search{
+    margin-left: auto;
+    margin-right: 0.5vw;
+    display: flex;
+}
+
+#searchBtn{
+    margin-right: 2vw;
+}
+
+#queryText{
+    display: flex;
+    width: auto;
+    height: auto;
+    color: aliceblue;
+}
