@@ -2,6 +2,10 @@ html, body {
     background: rgb(33, 28, 28);
 }
 
+.container{
+    display: block;
+}
+
 #upper_container{
     align-items: flex-end;
     display: flex;
@@ -10,6 +14,24 @@ html, body {
     margin-left: 3vw;
     margin-right: 3vw;
     border-radius: 5px;
+}
+
+#image-ratings{
+    display: inline-block;
+    margin-top: 4vw;
+    margin-left: 4vw;
+}
+
+#details{
+    align-items: center;
+    display: inline-flex;
+    background-color: grey;  
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-left: 1vw;
+    margin-top: 4vw;
+    vertical-align: top;
+    max-width: 69vw;
 }
 
 #search{
@@ -27,4 +49,41 @@ html, body {
     width: auto;
     height: auto;
     color: aliceblue;
+}
+
+#poster{
+    display: block;
+    width: 20vw;
+    height: 30vw;
+}
+
+#title{
+    display: inline-flex;
+    color: #fff;
+    font-size: auto;
+}
+
+#director{
+    display: inline-flex;
+    color: #fff;
+    font-size: auto;
+}
+
+#plot{
+    display: none;
+    color: #fff;
+}
+
+.logo{
+    width: 4vw;
+    height: 3vw;
+    margin-top: 1vw;
+    border-width: 2px;
+    border-color: rgb(151, 142, 142);
+    padding: 2px;
+}
+
+.rating{
+    padding-left: 1vw;
+    color: #fff;
 }
