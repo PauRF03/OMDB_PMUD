@@ -24,7 +24,7 @@ html, body {
 
 #details{
     align-items: center;
-    display: inline-flex;
+    display: inline-block;
     background-color: grey;  
     margin-left: 3vw;
     margin-right: 3vw;
@@ -32,6 +32,7 @@ html, body {
     margin-top: 4vw;
     vertical-align: top;
     max-width: 69vw;
+    border-radius: 5px;
 }
 
 #search{
@@ -41,6 +42,7 @@ html, body {
 }
 
 #searchBtn{
+    display: flex;
     margin-right: 2vw;
 }
 
@@ -52,7 +54,7 @@ html, body {
 }
 
 #poster{
-    display: block;
+    display: flex;
     width: 20vw;
     height: 30vw;
 }
@@ -60,18 +62,26 @@ html, body {
 #title{
     display: inline-flex;
     color: #fff;
-    font-size: auto;
+    font-size: 2.5vw;
+    align-self: center;
+    margin-left: 1vw;
 }
 
 #director{
     display: inline-flex;
     color: #fff;
-    font-size: auto;
+    font-size: 1.5vw;
+    align-self: center;
 }
 
-#plot{
-    display: none;
+#awards, #starring, #plot{
+    display: flex;
     color: #fff;
+    margin-top: -4.5vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font-size: 1vw;
+    text-align: justify;
 }
 
 .logo{
@@ -86,4 +96,18 @@ html, body {
 .rating{
     padding-left: 1vw;
     color: #fff;
+    align-items: center;
+}
+
+#year{
+    display: flex;
+    color: #fff;
+    max-width: 69vw;
+    margin-top: -1.5vw;
+    margin-left: 1vw;
+}
+
+.data-container{
+    display: inline-flex;
+    min-width: 69vw;
 }
