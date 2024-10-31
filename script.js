@@ -15,7 +15,10 @@ function searchClicked(){
                 <h3 id="title">${data["Title"]}</h3>
                 <h4 id="director">&nbsp directed by &nbsp <strong>${data["Director"]}</strong></h4>
               </div>
-              <h4 id="year">${data["Year"]}</h4>
+              <h4 id="runtime">${data["Runtime"]}</h4>
+              <h4 id="year">${data["Genre"]}</h4>
+              <h4 id="year">(${data["Year"]})</h4>
+              <h4 id="writer">Written by ${data["Writer"]}</h4>
               <div class="data-container">
                 <h6 id="plot">${data["Plot"]}</h6>
               </div>

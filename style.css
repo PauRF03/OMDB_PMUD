@@ -74,7 +74,7 @@ html, body {
     align-self: center;
 }
 
-#awards, #starring, #plot{
+#awards, #starring, #plot, #writer, #runtime{
     display: flex;
     color: #fff;
     margin-top: -4.5vw;
@@ -82,6 +82,14 @@ html, body {
     margin-right: 1vw;
     font-size: 1vw;
     text-align: justify;
+}
+
+#writer{
+    margin-top: 0vw;
+}
+
+#runtime{
+    margin-top: -2vw;
 }
 
 .logo{
@@ -99,8 +107,8 @@ html, body {
     align-items: center;
 }
 
-#year{
-    display: flex;
+#year, #genre{
+    display: inline-flex;
     color: #fff;
     max-width: 69vw;
     margin-top: -1.5vw;
