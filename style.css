@@ -61,6 +61,7 @@ html, body {
     display: flex;
     width: 20vw;
     height: 30vw;
+    border-radius: 25px;
 }
 
 #title{
@@ -91,6 +92,25 @@ html, body {
     font-family: 'Courier New', Courier, monospace;
 }
 
+#ratings{
+    border-color: gray;
+    border-width: 2px;
+    border-style: hidden;
+    margin-top: 1vw;
+    align-self: center;
+    border-collapse: collapse;
+    border-radius: 10px;
+    box-shadow: 0 0 0 2px gray;
+
+}
+
+td{
+    border-color: gray;
+    border-width: 2px;
+    border-style: groove;
+    padding: 5px;
+}
+
 #genre{
     margin-right: 0vw;
 }
@@ -106,10 +126,8 @@ html, body {
 .logo{
     width: 4vw;
     height: 3vw;
-    margin-top: 1vw;
     border-width: 2px;
     border-color: rgb(151, 142, 142);
-    padding: 2px;
 }
 
 .rating{
