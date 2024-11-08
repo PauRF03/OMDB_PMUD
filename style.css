@@ -1,20 +1,11 @@
 html, body {
     background: rgb(33, 28, 28);
-    
-}
-
-.container{
-    display: flex;
-    justify-content: center;
 }
 
 #upper_container{
     align-items: flex-end;
     display: flex;
     background-color:lawngreen;
-    padding: 2vw;
-    margin-left: 3vw;
-    margin-right: 3vw;
     border-radius: 5px;
 }
 
@@ -37,17 +28,6 @@ html, body {
     height: fit-content;
     max-height: fit-content;
     border-radius: 5px;
-}
-
-#search{
-    margin-left: auto;
-    margin-right: 0.5vw;
-    display: flex;
-}
-
-#searchBtn{
-    display: flex;
-    margin-right: 2vw;
 }
 
 #queryText{
