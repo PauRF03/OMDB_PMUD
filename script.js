@@ -1,4 +1,4 @@
-function searchClicked(){
+function filmClicked(){
     let query = $("#search").val().toString();
     if(query !== ""){
         query = query.replace(" ", "_")
@@ -75,9 +75,3 @@ function searchClicked(){
           });
     }
 }
-
-function init(){
-    $("#searchBtn").click(searchClicked);
-}
-
-$(document).ready(init);

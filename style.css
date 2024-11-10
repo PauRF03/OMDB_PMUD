@@ -135,3 +135,12 @@ td{
     color: #fff;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+.img-thumbnail{
+    border: 0;
+    border-radius: 15px;
+}
+
+.h2:hover{
+    color: aqua;
+}
