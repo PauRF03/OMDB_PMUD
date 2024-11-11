@@ -9,20 +9,9 @@ html, body {
     border-radius: 5px;
 }
 
-#image-ratings{
-    display: inline-block;
-    margin-top: 4vw;
-    margin-left: 4vw;
-}
-
 #details{
     align-items: center;
-    display: inline-block;
-    background-color: grey;  
-    margin-left: 3vw;
-    margin-right: 3vw;
-    margin-left: 1vw;
-    margin-top: 4vw;
+    background-color: grey;
     vertical-align: top;
     max-width: 69vw;
     height: fit-content;
@@ -38,7 +27,6 @@ html, body {
 }
 
 #poster{
-    display: flex;
     width: 20vw;
     height: 30vw;
     border-radius: 25px;
