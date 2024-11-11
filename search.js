@@ -42,7 +42,7 @@ function loadResults() {
                         } else {
                             s += `<img class="col-2 rounded p-2 img-thumbnail img-fluid b-0" src=${data["Search"][i]["Poster"]} alt="${data["Search"][i]["Title"]} poster"</img>`
                         }
-                        s += `<a class="col-10 blockquote pl-4 pt-4" href="film.html?f=${data["Search"][i]["imdbID"]}"><h2> <strong>${data["Search"][i]["Title"]} (${data["Search"][i]["Year"]})</strong><br/>${data["Search"][i]["Type"]}</h2></a>
+                        s += `<a class="col-10 blockquote pl-4 pt-4" href="film.html?f=${data["Search"][i]["imdbID"]}" target="_blank"><h2> <strong>${data["Search"][i]["Title"]} (${data["Search"][i]["Year"]})</strong><br/>${data["Search"][i]["Type"]}</h2></a>
                         </div>`;
                     }
                     $("#searchResult").html(s);
