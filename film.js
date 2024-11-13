@@ -1,11 +1,3 @@
-function filmClicked() {
-  let query = $("#search").val().toString();
-  if (query !== "") {
-    query = query.replace(" ", "_")
-
-  }
-}
-
 function init() {
   const imdbID = new URLSearchParams(window.location.search).get('f');
   fetch(`http://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=1140ed56`)
@@ -17,33 +9,31 @@ function init() {
     })
     .then(data => {
       if (data["Response"] === "True") {
-        $(".container").html(
-          `<div id = "image-ratings">
-                </div>
-                <div id = "details">
-                
-                </div>`
-        )
         $("#details").html(`
-                <div class="data-container">
-                  <h3 id="title">${data["Title"]}</h3>
-                  <h4 id="director">&nbsp directed by &nbsp <strong>${data["Director"]}</strong></h4>
+                <div class="pt-2 row">
+                  <h2 class="text-light col-auto align-middle lh-parent align-middle"><strong>${data["Title"]} (${data["Year"]})</strong></h3>
+                  <h4 class="text-light col-auto align-middle lh-parent align-middle">directed by <strong class="fs-3">${data["Director"]}</strong></h4>
                 </div>
-                <h4 id="runtime">${data["Runtime"]}</h4>
-                <h4 id="genre">${data["Genre"]}</h4>
-                <h4 id="year">(${data["Year"]})</h4>
-                <h4 id="writer">Written by ${data["Writer"]}</h4>
-                <div class="data-container">
-                  <h6 id="plot">${data["Plot"]}</h6>
+                <div class="row-fluid badge text-bg-success">
+                  <h5 class="text-light col-auto text-align-center">${data["Runtime"]}</h5>
                 </div>
-                <div class="data-container">
-                  <h6 id="starring">Starring: ${data["Actors"]}</h6>
+                <div class="row-fluid">
+                  <h5 class="text-light col-auto text-align-center">${data["Genre"]}</h5>
                 </div>
-                <div class="data-container">
-                  <h6 id="awards">Awards: ${data["Awards"]}</h6>
+                <div class="row-fluid">
+                  <h5 class="text-light col-auto text-align-center">Written by ${data["Writer"]}</h5>
                 </div>
-                <div class="data-container">
-                  <h6 id="earnings">Earnings: ${data["BoxOffice"]}</h6>
+                <div class="row-fluid text-wrap">
+                  <h6 class="text-light col-auto text-align-center">${data["Plot"]}</h6>
+                </div>
+                <div class="row-fluid">
+                  <h6 class="text-light col-auto text-align-center">Starring: ${data["Actors"]}</h6>
+                </div>
+                <div class="row-fluid">
+                  <h6 class="text-light col-auto text-align-center">Awards: ${data["Awards"]}</h6>
+                </div>
+                <div class="row-fluid">
+                  <h6 class="text-light col-auto text-align-center">Earnings: ${data["BoxOffice"]}</h6>
                 </div>
               `);
         let s = ``;
@@ -53,7 +43,7 @@ function init() {
           s += `<img id="poster" src="${data["Poster"]}" alt="${data["Title"]} poster">`
         }
         if (data["Ratings"].length != 0) {
-          s += `<table id="ratings">`;
+          s += `<table class="w-parent" id="ratings">`;
           if (data["Ratings"][0] != null) {
             s += `<tr>
                     <td><a href="https://www.imdb.com/title/${data["imdbID"]}" target="_blank"><img class="logo" src="/media/imdb.svg" alt=""></a></td>
@@ -62,13 +52,13 @@ function init() {
           }
           if (data["Ratings"][1] != null) {
             s += `<tr>
-                    <td><a href="https://www.rottentomatoes.com/m/${query}" target="_blank"><img class="logo" src="/media/rotten_tomatoes.svg" alt=""></a></td>
+                    <td><a href="https://www.rottentomatoes.com/m/${data["Title"].toLowerCase().replace(/[\W_]+/g, "_")}" target="_blank"><img class="logo" src="/media/rotten_tomatoes.svg" alt=""></a></td>
                     <td class="rating">${data["Ratings"][1]["Value"]}</td>
                   </tr>`;
           }
           if (data["Ratings"][2] != null) {
             s += `<tr>
-                    <td><a href="https://www.metacritic.com/movie/${query.replace("_", "-")}" target="_blank"><img class="logo" src="/media/metacritic.svg" alt=""></a></td>
+                    <td><a href="https://www.metacritic.com/movie/${data["Title"].toLowerCase().replace(/[^a-zA-Z0-9\-]+/g, "-")}" target="_blank"><img class="logo" src="/media/metacritic.svg" alt=""></a></td>
                     <td class="rating">${data["Ratings"][2]["Value"]} </td>
                   </tr>`;
           }

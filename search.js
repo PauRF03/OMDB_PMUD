@@ -38,7 +38,7 @@ function updateVisited(id, title, poster) {
 function initRecentlyVisited(){
     let s = `<h3 class="text-light pb-2"><strong>Recent searches</strong></h3>`;
     for(let i = films.length - 1; i >= 0; i--){
-        s += `<a class="card bg-light col-2 ms-3" href="film.html?f=${films[i]["id"]}">
+        s += `<a class="card bg-light col-2 ms-3" href="film.html?f=${films[i]["id"]}" onclick="updateVisited('${films[i]["id"]}', '${films[i]["title"]}', '${films[i]["poster"]}">
                 <img src="${films[i]["poster"]}" alt="${films[i]["title"]} poster" class="img-fluid p-2">
                 <h6 class="h6">${films[i]["title"]}</h4>
             </div>
