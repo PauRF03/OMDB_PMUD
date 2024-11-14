@@ -24,7 +24,14 @@ function prevPage() {
     loadResults();
 }
 
+function clearVisited() {
+    films = []
+    localStorage["recentlyVisited"] = JSON.stringify(films);
+    initRecentlyVisited();
+}
+
 function updateVisited(id, title, poster) {
+    for(let i = 0; i < films.length; i++) if(films[i].id === id) films.splice(i, 1);
     films.push({
         id,
         title,
@@ -32,24 +39,31 @@ function updateVisited(id, title, poster) {
     });
     if (films.length > 5) films = films.slice(1, 6);
     localStorage["recentlyVisited"] = JSON.stringify(films);
-    initRecentlyVisited();
 }
 
-function initRecentlyVisited(){
-    let s = `<h3 class="text-light pb-2"><strong>Recent searches</strong></h3>`;
-    for(let i = films.length - 1; i >= 0; i--){
-        s += `<a class="card bg-light col-2 ms-3" href="film.html?f=${films[i]["id"]}" onclick="updateVisited('${films[i]["id"]}', '${films[i]["title"]}', '${films[i]["poster"]}">
+function initRecentlyVisited() {
+    $("#searchResult").html("");
+    $("#lower_container").html("");
+    $("#recentlyVisited").html("");
+    if (films.length > 0) {
+        let s = `<div class="row-fluid d-flex pb-4">
+                    <h3 class="text-light col-auto d-inline-block me-auto"><strong>Recent searches</strong></h3>
+                    <button class="btn btn-danger col-auto d-inline-block justify-self-end" onclick="clearVisited()" id="nextPage">Clear</button>
+                </div>`;
+        for (let i = films.length - 1; i >= 0; i--) {
+            s += `<a class="card bg-light col-2 ms-3" href="film.html?f=${films[i]["id"]}" onclick="updateVisited('${films[i]["id"]}', '${films[i]["title"]}', '${films[i]["poster"]}')">
                 <img src="${films[i]["poster"]}" alt="${films[i]["title"]} poster" class="img-fluid p-2">
                 <h6 class="h6">${films[i]["title"]}</h4>
             </div>
         </a>`
+        }
+        $("#recentlyVisited").html(s);
     }
-    $("#recentlyVisited").html(s);
 }
 
 function loadResults() {
     if (query !== "") {
-        fetch(`http://www.omdbapi.com/?s=${query.replace(" ", "_")}&page=${page}&apikey=1140ed56`)
+        fetch(`http://www.omdbapi.com/?s=${query.replace(" ", "_").replace(".", "")}&page=${page}&apikey=1140ed56`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error');
@@ -60,7 +74,16 @@ function loadResults() {
                 $("#recentlyVisited").html("");
                 maxPages = Math.ceil(data["totalResults"] / 10);
                 if (data["Response"] === "True") {
-                    let s = `<h3 class="text-light pb-2"><strong>Results for "${query}"</strong></h3>`;
+                    let s = `
+                            <div class="row-fluid justify-content-end input-group pb-2" id="pageSelectorSection">
+                                <h3 class="text-light me-auto col-auto"><strong>${data["totalResults"]} results for "${query}"</strong></h3>
+                                <div class="col-auto btn-group h-auto">
+                                    <button class="btn btn-secondary" onclick="firstPage()" id="firstPage">1</button> 
+                                    <button class="btn btn-secondary" onclick="prevPage()" id="prevPage">Previous page</button>
+                                    <button class="btn btn-secondary" onclick="nextPage()" id="nextPage">Next page</button>
+                                    <button class="btn btn-secondary" onclick="lastPage()" id="lastPage">${maxPages}</button>
+                                </div>
+                            </div>`;
                     for (let i = 0; i < data["Search"].length; i++) {
                         s += `<div class="row card-fluid bg-light m-2 rounded align-self-center">`;
                         if (data["Search"][i]["Poster"] === "N/A") {
@@ -68,7 +91,14 @@ function loadResults() {
                         } else {
                             s += `<img class="col-2 rounded p-2 img-thumbnail img-fluid b-0" src=${data["Search"][i]["Poster"]} alt="${data["Search"][i]["Title"]} poster"</img>`
                         }
-                        s += `<a class="col-10 blockquote pl-4 pt-4" href="film.html?f=${data["Search"][i]["imdbID"]}" target="_blank" onclick="updateVisited('${data["Search"][i]["imdbID"]}', '${data["Search"][i]["Title"]}', '${data["Search"][i]["Poster"]}')"><h2><strong>${data["Search"][i]["Title"]} (${data["Search"][i]["Year"]})</strong><br/>${data["Search"][i]["Type"]}</h2></a></div>`;
+                        s += `
+                            <div class="col-10">
+                                <a class="blockquote pl-4 pt-4" href="film.html?f=${data["Search"][i]["imdbID"]}" onclick="updateVisited('${data["Search"][i]["imdbID"]}', '${data["Search"][i]["Title"]}', '${data["Search"][i]["Poster"]}')">
+                                    <h2 class="row-auto"><strong>${data["Search"][i]["Title"]} (${data["Search"][i]["Year"]})</strong></h2>
+                                </a>
+                                <h4 class="row-auto">${data["Search"][i]["Type"].charAt(0).toUpperCase() + data["Search"][i]["Type"].slice(1)}</h4>
+                            </div>
+                        </div>`;
                     }
                     $("#searchResult").html(s);
                     let f = `<div class="row me-2 ms-2 mb-2 p-3" id="upper_container">
@@ -104,6 +134,7 @@ function searchClicked() {
     page = 1;
     maxPages = 1;
     query = $("#search").val().toString();
+    $("#search").val("");
     loadResults();
 }
 

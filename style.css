@@ -5,7 +5,7 @@ html, body {
 #upper_container{
     align-items: flex-end;
     display: flex;
-    background-color:lawngreen;
+    background-color: darkblue;
     border-radius: 5px;
 }
 
@@ -119,4 +119,16 @@ td{
 
 .h2:hover{
     color: aqua;
+}
+
+.card-fluid:hover{
+    transform: scale(1.05);
+}
+
+.card:hover{
+    transform: scale(1.1);
+}
+
+.card, .card-fluid{
+    transition: transform 0.2s ease;
 }
