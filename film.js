@@ -9,33 +9,47 @@ function init() {
     })
     .then(data => {
       if (data["Response"] === "True") {
-        $("#details").html(`
-                <div class="pt-2 row">
-                  <h2 class="text-light col-auto align-middle lh-parent align-middle"><strong>${data["Title"]} (${data["Year"]})</strong></h3>
-                  <h4 class="text-light col-auto align-middle lh-parent align-middle">directed by <strong class="fs-3">${data["Director"]}</strong></h4>
-                </div>
-                <div class="row-fluid badge text-bg-success">
+        document.title = data["Title"];
+        let d = `<div class="pt-2 row-fluid mb-3 align-text-bottom">
+                  <h2 class="text-light col-auto my-auto"><strong>${data["Title"]} (${data["Year"]})</strong></h3>
+                  <h4 class="text-light col-auto my-auto">directed by <strong class="fs-3">${data["Director"]}</strong></h4>
+                </div>`;
+        if(data["Runtime"] !== "N/A"){
+          d += `<div class="row-fluid badge text-bg-success mb-3">
                   <h5 class="text-light col-auto text-align-center">${data["Runtime"]}</h5>
-                </div>
-                <div class="row-fluid">
+                </div>`;
+        }
+        if(data["Genre"] !== "N/A"){
+          d += `<div class="row-fluid mb-3">
                   <h5 class="text-light col-auto text-align-center">${data["Genre"]}</h5>
-                </div>
-                <div class="row-fluid">
+                </div>`;
+        }
+        if(data["Writer"] !== "N/A"){
+          d += `<div class="row-fluid mb-3">
                   <h5 class="text-light col-auto text-align-center">Written by ${data["Writer"]}</h5>
-                </div>
-                <div class="row-fluid text-wrap">
-                  <h6 class="text-light col-auto text-align-center">${data["Plot"]}</h6>
-                </div>
-                <div class="row-fluid">
-                  <h6 class="text-light col-auto text-align-center">Starring: ${data["Actors"]}</h6>
-                </div>
-                <div class="row-fluid">
-                  <h6 class="text-light col-auto text-align-center">Awards: ${data["Awards"]}</h6>
-                </div>
-                <div class="row-fluid">
-                  <h6 class="text-light col-auto text-align-center">Earnings: ${data["BoxOffice"]}</h6>
-                </div>
-              `);
+                </div>`;
+        }
+        if(data["Plot"] !== "N/A"){
+          d += `<div class="row-fluid mb-3">
+                  <h5 class="text-light col-auto text-align-center lh-base">${data["Plot"]}</h5>
+                </div>`;
+        }
+        if(data["Actors"] !== "N/A"){
+          d += `<div class="row-fluid mb-3">
+                  <h5 class="text-light col-auto text-align-center">Starring: ${data["Actors"]}</h5>
+                </div>`;
+        }
+        if(data["Awards"] !== "N/A"){
+          d += `<div class="row-fluid mb-3">
+                  <h5 class="text-light col-auto text-align-center">Awards: ${data["Awards"]}</h5>
+                </div>`;
+        }
+        if(data["BoxOffice"] !== "N/A"){
+          d += `<div class="row-fluid mb-3">
+                  <h5 class="text-light col-auto text-align-center">Earnings: ${data["BoxOffice"]}</h5>
+                </div>`;
+        }
+        $("#details").html(d);
         let s = ``;
         if (data["Poster"] === "N/A") {
           s += `<img id="poster" src="/media/no-image.png" alt="$No poster">`

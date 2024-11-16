@@ -132,3 +132,7 @@ td{
 .card, .card-fluid{
     transition: transform 0.2s ease;
 }
+
+#upper_container h4:hover{
+    color: grey;
+}
