@@ -1,5 +1,15 @@
+function searchClicked() {
+  let query = $("#search").val().toString();
+  $("#search").val("");
+  location.href = `search.html?q=${query.replace(" ", "_").replace(".", "")}`
+}
+
 function init() {
   const imdbID = new URLSearchParams(window.location.search).get('f');
+  $("#searchBtn").click(searchClicked);
+  $("#search").on('keypress', function (e) {
+    if (e.keyCode == 13) searchClicked();
+  });
   fetch(`http://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=1140ed56`)
     .then(response => {
       if (!response.ok) {
@@ -14,37 +24,37 @@ function init() {
                   <h2 class="text-light col-auto my-auto"><strong>${data["Title"]} (${data["Year"]})</strong></h3>
                   <h4 class="text-light col-auto my-auto">directed by <strong class="fs-3">${data["Director"]}</strong></h4>
                 </div>`;
-        if(data["Runtime"] !== "N/A"){
+        if (data["Runtime"] !== "N/A") {
           d += `<div class="row-fluid badge text-bg-success mb-3">
                   <h5 class="text-light col-auto text-align-center">${data["Runtime"]}</h5>
                 </div>`;
         }
-        if(data["Genre"] !== "N/A"){
+        if (data["Genre"] !== "N/A") {
           d += `<div class="row-fluid mb-3">
                   <h5 class="text-light col-auto text-align-center">${data["Genre"]}</h5>
                 </div>`;
         }
-        if(data["Writer"] !== "N/A"){
+        if (data["Writer"] !== "N/A") {
           d += `<div class="row-fluid mb-3">
                   <h5 class="text-light col-auto text-align-center">Written by ${data["Writer"]}</h5>
                 </div>`;
         }
-        if(data["Plot"] !== "N/A"){
+        if (data["Plot"] !== "N/A") {
           d += `<div class="row-fluid mb-3">
                   <h5 class="text-light col-auto text-align-center lh-base">${data["Plot"]}</h5>
                 </div>`;
         }
-        if(data["Actors"] !== "N/A"){
+        if (data["Actors"] !== "N/A") {
           d += `<div class="row-fluid mb-3">
                   <h5 class="text-light col-auto text-align-center">Starring: ${data["Actors"]}</h5>
                 </div>`;
         }
-        if(data["Awards"] !== "N/A"){
+        if (data["Awards"] !== "N/A") {
           d += `<div class="row-fluid mb-3">
                   <h5 class="text-light col-auto text-align-center">Awards: ${data["Awards"]}</h5>
                 </div>`;
         }
-        if(data["BoxOffice"] !== "N/A"){
+        if (data["BoxOffice"] !== "N/A") {
           d += `<div class="row-fluid mb-3">
                   <h5 class="text-light col-auto text-align-center">Earnings: ${data["BoxOffice"]}</h5>
                 </div>`;

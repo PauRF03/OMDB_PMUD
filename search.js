@@ -1,8 +1,7 @@
+let query;
+let films = [];
 let page = 1;
 let maxPages = 1;
-let query = "";
-let films = [];
-localStorage["recentlyVisited"] = localStorage["recentlyVisited"] || JSON.stringify(films);
 
 function firstPage() {
     page = 1;
@@ -24,14 +23,8 @@ function prevPage() {
     loadResults();
 }
 
-function clearVisited() {
-    films = []
-    localStorage["recentlyVisited"] = JSON.stringify(films);
-    initRecentlyVisited();
-}
-
 function updateVisited(id, title, poster) {
-    for(let i = 0; i < films.length; i++) if(films[i].id === id) films.splice(i, 1);
+    for (let i = 0; i < films.length; i++) if (films[i].id === id) films.splice(i, 1);
     films.push({
         id,
         title,
@@ -41,29 +34,9 @@ function updateVisited(id, title, poster) {
     localStorage["recentlyVisited"] = JSON.stringify(films);
 }
 
-function initRecentlyVisited() {
-    $("#searchResult").html("");
-    $("#lower_container").html("");
-    $("#recentlyVisited").html("");
-    if (films.length > 0) {
-        let s = `<div class="row-fluid d-flex pb-4">
-                    <h3 class="text-light col-auto d-inline-block me-auto"><strong>Recent searches</strong></h3>
-                    <button class="btn btn-danger col-auto d-inline-block justify-self-end" onclick="clearVisited()" id="nextPage">Clear</button>
-                </div>`;
-        for (let i = films.length - 1; i >= 0; i--) {
-            s += `<a class="card bg-light col-2 ms-3" href="film.html?f=${films[i]["id"]}" onclick="updateVisited('${films[i]["id"]}', '${films[i]["title"]}', '${films[i]["poster"]}')">
-                <img src="${films[i]["poster"]}" alt="${films[i]["title"]} poster" class="img-fluid p-2">
-                <h6 class="h6">${films[i]["title"]}</h4>
-            </div>
-        </a>`
-        }
-        $("#recentlyVisited").html(s);
-    }
-}
-
 function loadResults() {
     if (query !== "") {
-        fetch(`http://www.omdbapi.com/?s=${query.replace(" ", "_").replace(".", "")}&page=${page}&apikey=1140ed56`)
+        fetch(`http://www.omdbapi.com/?s=${query}&page=${page}&apikey=1140ed56`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error');
@@ -71,12 +44,11 @@ function loadResults() {
                 return response.json();
             })
             .then(data => {
-                $("#recentlyVisited").html("");
                 maxPages = Math.ceil(data["totalResults"] / 10);
                 if (data["Response"] === "True") {
                     let s = `
-                            <div class="row-fluid justify-content-end input-group pb-2" id="pageSelectorSection">
-                                <h3 class="text-light me-auto col-auto"><strong>${data["totalResults"]} results for "${query}"</strong></h3>
+                            <div class="row-fluid justify-content-end input-group py-2" id="pageSelectorSection">
+                                <h3 class="text-light me-auto col-auto"><strong>${data["totalResults"]} results</strong></h3>
                                 <div class="col-auto btn-group h-auto">
                                     <button class="btn btn-secondary" onclick="firstPage()" id="firstPage">1</button> 
                                     <button class="btn btn-secondary" onclick="prevPage()" id="prevPage">Previous page</button>
@@ -135,17 +107,17 @@ function searchClicked() {
     maxPages = 1;
     query = $("#search").val().toString();
     $("#search").val("");
-    loadResults();
+    location.href = `search.html?q=${query.replace(" ", "_").replace(".", "")}`;
 }
 
-
 function init() {
+    query = new URLSearchParams(window.location.search).get('q');
+    films = JSON.parse(localStorage["recentlyVisited"]);
     $("#searchBtn").click(searchClicked);
     $("#search").on('keypress', function (e) {
         if (e.keyCode == 13) searchClicked();
     });
-    films = JSON.parse(localStorage["recentlyVisited"]);
-    initRecentlyVisited();
+    loadResults();
 }
 
 $(document).ready(init);
