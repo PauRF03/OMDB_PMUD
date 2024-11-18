@@ -1,12 +1,38 @@
+let imdbID, poster, title;
+let watchlist = [];
+
 function searchClicked() {
   let query = $("#search").val().toString();
   $("#search").val("");
   location.href = `search.html?q=${query.replace(" ", "_").replace(".", "")}`
 }
 
+function checkboxListener(){
+  if($("#watchlist").is(':checked')){
+    for(let i = 0; i < watchlist.length; i++) if(watchlist[i].id === imdbID) watchlist.splice(i, 1);
+    watchlist.push({
+        id: imdbID,
+        title,
+        poster
+    });
+    localStorage["watchlist"] = JSON.stringify(watchlist);
+  }else{
+    for(let i = 0; i < watchlist.length; i++) if(watchlist[i].id === imdbID) watchlist.splice(i, 1);
+    localStorage["watchlist"] = JSON.stringify(watchlist);
+  }
+}
+
 function init() {
-  const imdbID = new URLSearchParams(window.location.search).get('f');
+  watchlist = JSON.parse(localStorage["watchlist"]);
+  imdbID = new URLSearchParams(window.location.search).get('f');
+  for(let i = 0; i < watchlist.length; i++) {
+    if(watchlist[i].id === imdbID) {
+      $("#watchlist").prop("checked", true);
+      break;
+    }
+  }
   $("#searchBtn").click(searchClicked);
+  $("#watchlist").click(checkboxListener);
   $("#search").on('keypress', function (e) {
     if (e.keyCode == 13) searchClicked();
   });
@@ -20,10 +46,14 @@ function init() {
     .then(data => {
       if (data["Response"] === "True") {
         document.title = data["Title"];
+        title = data["Title"];
         let d = `<div class="pt-2 row-fluid mb-3 align-text-bottom">
                   <h2 class="text-light col-auto my-auto"><strong>${data["Title"]} (${data["Year"]})</strong></h3>
-                  <h4 class="text-light col-auto my-auto">directed by <strong class="fs-3">${data["Director"]}</strong></h4>
-                </div>`;
+                `;
+        if (data["Director"] !== "N/A") {
+          d += `<h4 class="text-light col-auto my-auto">directed by <strong class="fs-3">${data["Director"]}</strong></h4>`;
+        }
+        d += `</div>`;
         if (data["Runtime"] !== "N/A") {
           d += `<div class="row-fluid badge text-bg-success mb-3">
                   <h5 class="text-light col-auto text-align-center">${data["Runtime"]}</h5>
@@ -62,8 +92,10 @@ function init() {
         $("#details").html(d);
         let s = ``;
         if (data["Poster"] === "N/A") {
+          poster = "/media/no-image.png";
           s += `<img id="poster" src="/media/no-image.png" alt="$No poster">`
         } else {
+          poster = data["Poster"];
           s += `<img id="poster" src="${data["Poster"]}" alt="${data["Title"]} poster">`
         }
         if (data["Ratings"].length != 0) {
