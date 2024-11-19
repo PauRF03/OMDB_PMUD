@@ -26,22 +26,24 @@ function init() {
         if (e.keyCode == 13) searchClicked();
     });
     watchlist = JSON.parse(localStorage["watchlist"]);
-    let s =``;
+    let s =`<div class="row justify-content-start pb-3 mx-5">`;
     for (let i = 0; i < watchlist.length; i++) {
-        if (i % 5 != 0) {
+        if (i % 5 !== 0 || i === 0) {
             s += `<a class="card bg-light col-2 ms-3" href="film.html?f=${watchlist[i]["id"]}" onclick="updateVisited('${watchlist[i]["id"]}', '${watchlist[i]["title"]}', '${watchlist[i]["poster"]}')">
                     <img src="${watchlist[i]["poster"]}" alt="${watchlist[i]["title"]} poster" class="img-fluid p-2">
                     <h6 class="h6">${watchlist[i]["title"]}</h4>
-            </a>`
-        } else {
+                </a>`
+        } else if(i%5 === 0 && i !== 0){
             s += `
-                <a class="card bg-light col-2 ms-3" href="film.html?f=${watchlist[i]["id"]}" onclick="updateVisited('${watchlist[i]["id"]}', '${watchlist[i]["title"]}', '${watchlist[i]["poster"]}')">
-                    <img src="${watchlist[i]["poster"]}" alt="${watchlist[i]["title"]} poster" class="img-fluid p-2">
-                    <h6 class="h6">${watchlist[i]["title"]}</h4>
                 </div>
-            </a>`
+                <div class="row justify-content-start pb-3 mx-5">
+                    <a class="card bg-light col-2 ms-3" href="film.html?f=${watchlist[i]["id"]}" onclick="updateVisited('${watchlist[i]["id"]}', '${watchlist[i]["title"]}', '${watchlist[i]["poster"]}')">
+                        <img src="${watchlist[i]["poster"]}" alt="${watchlist[i]["title"]} poster" class="img-fluid p-2">
+                        <h6 class="h6">${watchlist[i]["title"]}</h4>
+                    </a>`
         }
     }
+    s += `</div>`
     $("#watchlist").html(s);
 }
 

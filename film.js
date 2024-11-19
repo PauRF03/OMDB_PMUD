@@ -99,7 +99,7 @@ function init() {
           s += `<img id="poster" src="${data["Poster"]}" alt="${data["Title"]} poster">`
         }
         if (data["Ratings"].length != 0) {
-          s += `<table class="w-parent" id="ratings">`;
+          s += `<table class="w-parent table-responsive" id="ratings">`;
           if (data["Ratings"][0] != null) {
             s += `<tr>
                     <td><a href="https://www.imdb.com/title/${data["imdbID"]}" target="_blank"><img class="logo" src="/media/imdb.svg" alt=""></a></td>

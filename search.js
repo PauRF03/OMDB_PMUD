@@ -73,8 +73,8 @@ function loadResults() {
                         </div>`;
                     }
                     $("#searchResult").html(s);
-                    let f = `<div class="row me-2 ms-2 mb-2 p-3" id="upper_container">
-                        <div class="col-3 justify-content-end align-items-center input-group" id="pageSelectorSection">
+                    let f = `<div class="p-3" id="upper_container">
+                        <div class="justify-content-end align-items-center input-group" id="pageSelectorSection">
                             <div class="btn-group">
                                 <button class="btn btn-secondary" onclick="firstPage()" id="firstPage">1</button> 
                                 <button class="btn btn-secondary" onclick="prevPage()" id="prevPage">Previous page</button>
