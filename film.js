@@ -36,7 +36,7 @@ function init() {
   $("#search").on('keypress', function (e) {
     if (e.keyCode == 13) searchClicked();
   });
-  fetch(`httsp://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=1140ed56`)
+  fetch(`https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=1140ed56`)
     .then(response => {
       if (!response.ok) {
         throw new Error('Error');
