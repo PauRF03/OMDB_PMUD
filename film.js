@@ -102,19 +102,19 @@ function init() {
           s += `<table class="w-parent table-responsive" id="ratings">`;
           if (data["Ratings"][0] != null) {
             s += `<tr>
-                    <td><a href="https://www.imdb.com/title/${data["imdbID"]}" target="_blank"><img class="logo" src="/media/imdb.svg" alt=""></a></td>
+                    <td><a href="https://www.imdb.com/title/${data["imdbID"]}" target="_blank"><img class="logo" src="media/imdb.svg" alt=""></a></td>
                     <td class="rating">${data["Ratings"][0]["Value"]} (${data["imdbVotes"]}  votes)</td>
                   </tr>`;
           }
           if (data["Ratings"][1] != null) {
             s += `<tr>
-                    <td><a href="https://www.rottentomatoes.com/m/${data["Title"].toLowerCase().replace(/[\W_]+/g, "_")}" target="_blank"><img class="logo" src="/media/rotten_tomatoes.svg" alt=""></a></td>
+                    <td><a href="https://www.rottentomatoes.com/m/${data["Title"].toLowerCase().replace(/[\W_]+/g, "_")}" target="_blank"><img class="logo" src="media/rotten_tomatoes.svg" alt=""></a></td>
                     <td class="rating">${data["Ratings"][1]["Value"]}</td>
                   </tr>`;
           }
           if (data["Ratings"][2] != null) {
             s += `<tr>
-                    <td><a href="https://www.metacritic.com/movie/${data["Title"].toLowerCase().replace(/[^a-zA-Z0-9\-]+/g, "-")}" target="_blank"><img class="logo" src="/media/metacritic.svg" alt=""></a></td>
+                    <td><a href="https://www.metacritic.com/movie/${data["Title"].toLowerCase().replace(/[^a-zA-Z0-9\-]+/g, "-")}" target="_blank"><img class="logo" src="media/metacritic.svg" alt=""></a></td>
                     <td class="rating">${data["Ratings"][2]["Value"]} </td>
                   </tr>`;
           }
