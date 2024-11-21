@@ -36,7 +36,7 @@ function updateVisited(id, title, poster) {
 
 function loadResults() {
     if (query !== "") {
-        fetch(`http://www.omdbapi.com/?s=${query}&page=${page}&apikey=1140ed56`)
+        fetch(`https://www.omdbapi.com/?s=${query}&page=${page}&apikey=1140ed56`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error');
