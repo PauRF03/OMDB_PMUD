@@ -18,23 +18,19 @@ function checkboxListener(){
   if($("#watchlist").is(':checked')){
     // Si la pel·lícula ja està a la llista de desitjos, es treu per evitar duplicats.
     for(let i = 0; i < watchlist.length; i++) if(watchlist[i].id === imdbID) watchlist.splice(i, 1);
-    
+  
     // Es afegeix la pel·lícula a la llista de desitjos.
     watchlist.push({
         id: imdbID,
         title,
         poster
     });
-    
-    // La llista de desitjos actualitzada es guarda al localStorage.
-    localStorage["watchlist"] = JSON.stringify(watchlist);
   } else {
     // Si el checkbox no està marcat, es treu la pel·lícula de la llista de desitjos.
     for(let i = 0; i < watchlist.length; i++) if(watchlist[i].id === imdbID) watchlist.splice(i, 1);
-    
-    // La llista de desitjos actualitzada es guarda al localStorage.
-    localStorage["watchlist"] = JSON.stringify(watchlist);
   }
+  // La llista de desitjos actualitzada es guarda al localStorage.
+  localStorage["watchlist"] = JSON.stringify(watchlist);
 }
 
 // Funció per inicialitzar la pàgina quan es carrega.

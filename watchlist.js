@@ -2,8 +2,6 @@
 let watchlist = [];
 // Es declara un array buit per emmagatzemar la llista de pel·lícules recentment visitades.
 let films = [];
-// Si no existeix la clau 'watchlist' al localStorage, es crea amb un array buit.
-localStorage["watchlist"] = localStorage["watchlist"] || JSON.stringify(watchlist);
 
 // Funció per actualitzar la llista de pel·lícules recentment visitades al localStorage.
 function updateVisited(id, title, poster) {

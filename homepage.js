@@ -3,6 +3,9 @@
 let films = [];
 localStorage["recentlyVisited"] = localStorage["recentlyVisited"] || JSON.stringify(films);
 
+// Si no existeix la clau 'watchlist' al localStorage, es crea amb un array buit.
+localStorage["watchlist"] = localStorage["watchlist"] || JSON.stringify([]);
+
 // Funció per esborrar la llista de pel·lícules recentment visitades del localStorage i actualitzar la vista.
 function clearVisited() {
     // Es reinicia l'array de pel·lícules.
