@@ -25,6 +25,7 @@ function checkboxListener(){
         title,
         poster
     });
+    bootstrap.Toast.getOrCreateInstance($("#liveToast")).show()
   } else {
     // Si el checkbox no està marcat, es treu la pel·lícula de la llista de desitjos.
     for(let i = 0; i < watchlist.length; i++) if(watchlist[i].id === imdbID) watchlist.splice(i, 1);
@@ -151,19 +152,19 @@ function init() {
           s += `<table class="w-parent table-responsive" id="ratings">`;
           if (data["Ratings"][0] != null) {
             s += `<tr>
-                    <td><a href="https://www.imdb.com/title/${data["imdbID"]}" target="_blank"><img class="logo" src="media/imdb.svg" alt=""></a></td>
+                    <td><a href="https://www.imdb.com/title/${data["imdbID"]}" target="_blank"><img class="logo" src="media/imdb.png" alt=""></a></td>
                     <td class="rating">${data["Ratings"][0]["Value"]} (${data["imdbVotes"]}  votes)</td>
                   </tr>`;
           }
           if (data["Ratings"][1] != null) {
             s += `<tr>
-                    <td><a href="https://www.rottentomatoes.com/m/${data["Title"].toLowerCase().replace(/[\W_]+/g, "_")}" target="_blank"><img class="logo" src="media/rotten_tomatoes.svg" alt=""></a></td>
+                    <td><a href="https://www.rottentomatoes.com/m/${data["Title"].toLowerCase().replace(/[\W_]+/g, "_")}" target="_blank"><img class="logo" src="media/rotten_tomatoes.png" alt=""></a></td>
                     <td class="rating">${data["Ratings"][1]["Value"]}</td>
                   </tr>`;
           }
           if (data["Ratings"][2] != null) {
             s += `<tr>
-                    <td><a href="https://www.metacritic.com/movie/${data["Title"].toLowerCase().replace(/[^a-zA-Z0-9\-]+/g, "-")}" target="_blank"><img class="logo" src="media/metacritic.svg" alt=""></a></td>
+                    <td><a href="https://www.metacritic.com/movie/${data["Title"].toLowerCase().replace(/[^a-zA-Z0-9\-]+/g, "-")}" target="_blank"><img class="logo" src="media/metacritic.png" alt=""></a></td>
                     <td class="rating">${data["Ratings"][2]["Value"]}</td>
                   </tr>`;
           }
