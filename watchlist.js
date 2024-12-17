@@ -1,6 +1,4 @@
-// Es declara un array buit per emmagatzemar la llista de pel·lícules afegides a la llista de desitjos (watchlist).
 let watchlist = [];
-// Es declara un array buit per emmagatzemar la llista de pel·lícules recentment visitades.
 let films = [];
 
 // Funció per actualitzar la llista de pel·lícules recentment visitades al localStorage.
@@ -26,9 +24,7 @@ function updateVisited(id, title, poster) {
 
 // Funció que es crida quan es fa clic al botó de cerca.
 function searchClicked() {
-    // Es recupera el terme de cerca introduït a l'input.
     let query = $("#search").val().toString();
-    // Es neteja el camp de cerca després de recuperar el valor.
     $("#search").val("");
     // Es redirigeix a la pàgina de resultats de cerca amb el terme de cerca com a paràmetre a la URL.
     location.href = `search.html?q=${query.replace(" ", "_").replace(".", "")}`;
@@ -44,29 +40,27 @@ function init() {
 
     // S'assigna una acció perquè es pugui realitzar la cerca prement la tecla Enter al camp de cerca.
     $("#search").on('keypress', function (e) {
-        if (e.keyCode == 13) searchClicked();  // 13 és el codi de la tecla Enter.
+        if (e.keyCode == 13) searchClicked(); 
     });
 
-    // Es recupera la llista de pel·lícules de la llista de desitjos (watchlist) des del localStorage.
+    // Es recupera la llista de pel·lícules de la watchlist des del localStorage.
     watchlist = JSON.parse(localStorage["watchlist"]);
 
-    // Es comença a construir el codi HTML per mostrar les pel·lícules de la llista de desitjos.
     let s = ``;
-
-    // S'itera sobre la llista de pel·lícules de la llista de desitjos per generar el contingut visual.
-    for (let i = 0; i < watchlist.length; i++) {
-        // Es comprova si no es tracta de la cinquena pel·lícula, en aquest cas es tanca la fila anterior i s'obre una nova fila.
+    if (watchlist.length > 0) {
+        // S'itera sobre la llista de pel·lícules de la llista de desitjos per generar el contingut visual.
+        for (let i = 0; i < watchlist.length; i++) {
+            // Es comprova si no es tracta de la cinquena pel·lícula, en aquest cas es tanca la fila anterior i s'obre una nova fila.
             s += `<a class="card bg-light col-2 mx-1 mb-5 mt-1 link-underline link-underline-opacity-0" href="film.html?f=${watchlist[i]["id"]}" onclick="updateVisited('${watchlist[i]["id"]}', '${watchlist[i]["title"]}', '${watchlist[i]["poster"]}')">
                     <img src="${watchlist[i]["poster"]}" alt="${watchlist[i]["title"]} poster" class="img-fluid p-2">
                     <h4 class="h4">${watchlist[i]["title"]}</h4>
                 </a>`;
 
+        }
+        s += `</div>`;
+    } else {
+        s += `<h1 class="text-light col-auto d-inline-block mt-5 mx-auto"><strong>Nothing to be seen here :(</strong></h1>`
     }
-
-    // Es tanca la fila després d'haver afegit totes les pel·lícules de la llista de desitjos.
-    s += `</div>`;
-
-    // S'actualitza la vista de la pàgina per mostrar la llista de desitjos.
     $("#watchlist").html(s);
 }
 

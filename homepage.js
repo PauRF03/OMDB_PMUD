@@ -8,11 +8,8 @@ localStorage["watchlist"] = localStorage["watchlist"] || JSON.stringify([]);
 
 // Funció per esborrar la llista de pel·lícules recentment visitades del localStorage i actualitzar la vista.
 function clearVisited() {
-    // Es reinicia l'array de pel·lícules.
     films = [];
-    // Es guarda l'array buit al localStorage.
-    localStorage["recentlyVisited"] = JSON.stringify(films);
-    // Es torna a inicialitzar la vista de pel·lícules recentment visitades.
+    localStorage["recentlyVisited"] = JSON.stringify([]);
     initRecentlyVisited();
 }
 
@@ -43,10 +40,10 @@ function initRecentlyVisited() {
     $("#searchResult").html("");
     $("#lower_container").html("");
     $("#recentlyVisited").html("");
-    
+    let s = ""
     // Si la llista de pel·lícules recentment visitades no està buida, es genera el contingut.
     if (films.length > 0) {
-        let s = `<div class="row-fluid d-flex pb-4">
+        s += `<div class="row-fluid d-flex pb-4">
                     <h3 class="text-light col-auto d-inline-block me-auto"><strong>Recent searches</strong></h3>
                     <button class="btn btn-danger col-auto d-inline-block justify-self-end" onclick="clearVisited()" id="nextPage">Clear</button>
                 </div>`;
@@ -56,20 +53,18 @@ function initRecentlyVisited() {
             s += `<a class="card bg-light col-2 mx-3 link-underline link-underline-opacity-0" href="film.html?f=${films[i]["id"]}" onclick="updateVisited('${films[i]["id"]}', '${films[i]["title"]}', '${films[i]["poster"]}')">
                 <img src="${films[i]["poster"]}" alt="${films[i]["title"]} poster" class="img-fluid p-2">
                 <h4 class="h4">${films[i]["title"]}</h4>
-            </div>
-        </a>`;
-        }
-
-        // S'actualitza la vista amb les pel·lícules recents.
-        $("#recentlyVisited").html(s);
+                </div>
+            </a>`;
+        }        
+    }else{
+        s += `<h1 class="text-light col-auto d-inline-block mt-5"><strong>Hello there! Search a movie to get started</strong></h1>`;
     }
+    $("#recentlyVisited").html(s);
 }
 
 // Funció que es dispara quan es fa clic al botó de cerca, redirigint a la pàgina de resultats amb la consulta de cerca.
 function searchClicked() {
-    // Es recupera el terme de cerca introduït pel usuari.
     let query = $("#search").val().toString();
-    // Es neteja el camp de cerca.
     $("#search").val("");
     // Es redirigeix a la pàgina de resultats de cerca amb el terme de cerca com a paràmetre.
     location.href = `search.html?q=${query.replace(" ", "_").replace(".", "")}`;

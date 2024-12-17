@@ -1,34 +1,30 @@
-// Es declara una variable per emmagatzemar el terme de cerca introduït per l'usuari.
 let query;
-// Es declara un array buit per emmagatzemar els resultats de la cerca.
 let films = [];
-// Es declara una variable per gestionar la pàgina actual de resultats de la cerca.
 let page = 1;
-// Es declara una variable per emmagatzemar el nombre màxim de pàgines de resultats.
 let maxPages = 1;
 
 // Funció per establir la pàgina actual a la primera pàgina i carregar els resultats.
 const firstPage = () => {
-    page = 1; // Estableix la pàgina actual com a 1.
-    loadResults(); // Carrega els resultats per a la pàgina 1.
+    page = 1;
+    loadResults();
 }
 
 // Funció per establir la pàgina actual a la última pàgina i carregar els resultats.
 const lastPage = () => {
-    page = maxPages; // Estableix la pàgina actual com la pàgina màxima.
-    loadResults(); // Carrega els resultats per a l'última pàgina.
+    page = maxPages;
+    loadResults();
 }
 
 // Funció per passar a la pàgina següent, si no és la pàgina màxima.
 const nextPage = () => {
-    if (page != maxPages) page++; // Incrementa la pàgina actual si no és la màxima.
-    loadResults(); // Carrega els resultats per a la nova pàgina.
+    if (page != maxPages) page++;
+    loadResults();
 }
 
 // Funció per passar a la pàgina anterior, si no és la primera pàgina.
 const prevPage = () => {
-    if (page != 1) page--; // Decrementa la pàgina actual si no és la primera.
-    loadResults(); // Carrega els resultats per a la nova pàgina.
+    if (page != 1) page--;
+    loadResults();
 }
 
 // Funció per actualitzar la llista de pel·lícules visitades recentment al localStorage.
@@ -43,7 +39,6 @@ function updateVisited(id, title, poster) {
     });
     // Si la llista té més de 5 pel·lícules, es manté només les 5 més recents.
     if (films.length > 5) films = films.slice(1, 6);
-    // S'actualitza el localStorage amb la nova llista de pel·lícules.
     localStorage["recentlyVisited"] = JSON.stringify(films);
 }
 
@@ -125,11 +120,10 @@ function loadResults() {
 
 // Funció que es crida quan es fa clic al botó de cerca.
 function searchClicked() {
-    page = 1; // Restableix la pàgina a la primera.
-    maxPages = 1; // Restableix el nombre màxim de pàgines.
-    // Es recupera el terme de cerca introduït per l'usuari.
+    page = 1;
+    maxPages = 1;
     query = $("#search").val().toString();
-    $("#search").val(""); // Neteja el camp de cerca.
+    $("#search").val("");
     // Es redirigeix a la pàgina de resultats amb el terme de cerca.
     location.href = `search.html?q=${query.replace(" ", "_").replace(".", "")}`;
 }
@@ -138,11 +132,8 @@ function searchClicked() {
 function init() {
     // Es recupera el terme de cerca des de la URL (paràmetre `q`).
     query = new URLSearchParams(window.location.search).get('q');
-    // Es recupera la llista de pel·lícules visitades recentment del localStorage.
     films = JSON.parse(localStorage["recentlyVisited"]);
-    // Es configura el botó de cerca per executar la funció searchClicked quan es fa clic.
     $("#searchBtn").click(searchClicked);
-    // Es configura el camp de cerca perquè també activi la cerca quan es prem la tecla Enter.
     $("#search").on('keypress', function (e) {
         if (e.keyCode == 13) searchClicked();
     });
